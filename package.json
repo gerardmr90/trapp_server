@@ -15,8 +15,11 @@
     "serve-favicon": "~2.4.2",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^3.5.1",
-    "sqlite3": "^3.0.10",
+    "sequelize": "^3.30.4",
+    "sqlite3": "^3.1.8",
     "underscore": "^1.8.3"
+  },
+  "engines": {
+    "node": "7.10.0"
   }
 }
