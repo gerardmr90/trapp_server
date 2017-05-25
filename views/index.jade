@@ -1,9 +1,521 @@
-extends layout
+doctype html
+html(lang='en')
+  head
+    // Theme Made By www.w3schools.com - No Copyright
+    title Bootstrap Theme Company Page
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    style.
+      body {
+        font: 400 15px Lato, sans-serif;
+        line-height: 1.8;
+        color: #818181;
+      }
 
-block content
-  h1= title
-  p Welcome to #{title}
-      ul
-          li: a(href='/') Home
-          li: a(href='/about') About
-          li: a(href='/landing') Services
+      h2 {
+        font-size: 24px;
+        text-transform: uppercase;
+        color: #303030;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+
+      h4 {
+        font-size: 19px;
+        line-height: 1.375em;
+        color: #303030;
+        font-weight: 400;
+        margin-bottom: 30px;
+      }
+
+      .jumbotron {
+        background-color: #245339;
+        color: #fff;
+        padding: 100px 25px;
+        font-family: Montserrat, sans-serif;
+      }
+
+      .container-fluid {
+        padding: 60px 50px;
+      }
+
+      .bg-grey {
+        background-color: #f6f6f6;
+      }
+
+      .logo-small {
+        color: #245339;
+        font-size: 50px;
+      }
+
+      .logo {
+        color: #245339;
+        font-size: 200px;
+      }
+
+      .thumbnail {
+        padding: 0 0 15px 0;
+        border: none;
+        border-radius: 0;
+      }
+
+      .thumbnail img {
+        width: 400px;
+        height: 650px;
+        margin-bottom: 10px;
+      }
+
+      .carousel-control.right, .carousel-control.left {
+        background-image: none;
+        color: #245339;
+      }
+
+      .carousel-indicators li {
+        border-color: #245339;
+      }
+
+      .carousel-indicators li.active {
+        background-color: #245339;
+      }
+
+      .item h4 {
+        font-size: 19px;
+        line-height: 1.375em;
+        font-weight: 400;
+        font-style: italic;
+        margin: 70px 0;
+      }
+
+      .item span {
+        font-style: normal;
+      }
+
+      .panel {
+        border: 1px solid #245339;
+        border-radius: 0 !important;
+        transition: box-shadow 0.5s;
+      }
+
+      .panel:hover {
+        box-shadow: 5px 0px 40px rgba(0, 0, 0, .2);
+      }
+
+      .panel-footer .btn:hover {
+        border: 1px solid #245339;
+        background-color: #fff !important;
+        color: #245339;
+      }
+
+      .panel-heading {
+        color: #fff !important;
+        background-color: #245339 !important;
+        padding: 25px;
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+      }
+
+      .panel-footer {
+        background-color: white !important;
+      }
+
+      .panel-footer h3 {
+        font-size: 32px;
+      }
+
+      .panel-footer h4 {
+        color: #aaa;
+        font-size: 14px;
+      }
+
+      .panel-footer .btn {
+        margin: 15px 0;
+        background-color: #245339;
+        color: #fff;
+      }
+
+      .navbar {
+        margin-bottom: 0;
+        background-color: #245339;
+        z-index: 9999;
+        border: 0;
+        font-size: 12px !important;
+        line-height: 1.42857143 !important;
+        letter-spacing: 4px;
+        border-radius: 0;
+        font-family: Montserrat, sans-serif;
+      }
+
+      .navbar li a, .navbar .navbar-brand {
+        color: #fff !important;
+      }
+
+      .navbar-nav li a:hover, .navbar-nav li.active a {
+        color: #245339 !important;
+        background-color: #fff !important;
+      }
+
+      .navbar-default .navbar-toggle {
+        border-color: transparent;
+        color: #fff !important;
+      }
+
+      footer .glyphicon {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #245339;
+      }
+
+      .slideanim {
+        visibility: hidden;
+      }
+
+      .slide {
+        animation-name: slide;
+        -webkit-animation-name: slide;
+        animation-duration: 1s;
+        -webkit-animation-duration: 1s;
+        visibility: visible;
+      }
+
+      @keyframes slide {
+        0% {
+          opacity: 0;
+          transform: translateY(70%);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+
+      @-webkit-keyframes slide {
+        0% {
+          opacity: 0;
+          -webkit-transform: translateY(70%);
+        }
+        100% {
+          opacity: 1;
+          -webkit-transform: translateY(0%);
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .col-sm-4 {
+          text-align: center;
+          margin: 25px 0;
+        }
+
+        .btn-lg {
+          width: 100%;
+          margin-bottom: 35px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .logo {
+          font-size: 150px;
+        }
+      }
+  body#myPage(data-spy='scroll', data-target='.navbar', data-offset='60')
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#myPage') Trapp
+        #myNavbar.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#about') ABOUT
+            li
+              a(href='#services') SERVICES
+            li
+              a(href='#screenshots') SCREENSHOTS
+            li
+              a(href='#pricing') PRICING
+            li
+              a(href='#contact') CONTACT
+    .jumbotron.text-center
+      h1 Trapp
+      p Making your delivery tracking so much easier
+
+    // Container (About Section)
+    #about.container-fluid
+      .row
+        .col-sm-8
+          h2 About Company Page
+          br
+          h4
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          br
+          p
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          br
+          button.btn.btn-default.btn-lg Get in Touch
+        .col-sm-4
+          span.glyphicon.glyphicon-signal.logo
+    .container-fluid.bg-grey
+      .row
+        .col-sm-4
+          span.glyphicon.glyphicon-globe.logo.slideanim
+        .col-sm-8
+          h2 Our Values
+          br
+          h4
+            strong MISSION:
+            |  Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          br
+          p
+            strong VISION:
+            |  Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            |       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    // Container (Services Section)
+    #services.container-fluid.text-center
+      h2 SERVICES
+      h4 What we offer
+      br
+      .row.slideanim
+        .col-sm-4
+          span.glyphicon.glyphicon-off.logo-small
+          h4 POWER
+          p Lorem ipsum dolor sit amet..
+        .col-sm-4
+          span.glyphicon.glyphicon-heart.logo-small
+          h4 LOVE
+          p Lorem ipsum dolor sit amet..
+        .col-sm-4
+          span.glyphicon.glyphicon-lock.logo-small
+          h4 JOB DONE
+          p Lorem ipsum dolor sit amet..
+      br
+      br
+      .row.slideanim
+        .col-sm-4
+          span.glyphicon.glyphicon-leaf.logo-small
+          h4 GREEN
+          p Lorem ipsum dolor sit amet..
+        .col-sm-4
+          span.glyphicon.glyphicon-certificate.logo-small
+          h4 CERTIFIED
+          p Lorem ipsum dolor sit amet..
+        .col-sm-4
+          span.glyphicon.glyphicon-wrench.logo-small
+          h4(style='color:#303030;') HARD WORK
+          p Lorem ipsum dolor sit amet..
+    // Container (Screenshots Section)
+    #screenshots.container-fluid.text-center.bg-grey
+      h2 Screenshots
+      br
+      h4 What we have created
+      .row.text-center.slideanim
+        .col-sm-4
+          .thumbnail
+            img(src='images/close_to_delivery.png', alt='Close', width='400', height='300')
+        .col-sm-4
+          .thumbnail
+            img(src='images/delivering.png', alt='Delivering', width='400', height='300')
+        .col-sm-4
+          .thumbnail
+            img(src='images/history.png', alt='History', width='400', height='300')
+      br
+      h2 What our customers say
+      #myCarousel.carousel.slide.text-center(data-ride='carousel')
+        // Indicators
+        ol.carousel-indicators
+          li.active(data-target='#myCarousel', data-slide-to='0')
+          li(data-target='#myCarousel', data-slide-to='1')
+          li(data-target='#myCarousel', data-slide-to='2')
+        // Wrapper for slides
+        .carousel-inner(role='listbox')
+          .item.active
+            h4
+              | "This company is the best. I am so happy with the result!"
+              br
+              span Michael Roe, Vice President, Comment Box
+          .item
+            h4
+              | "One word... WOW!!"
+              br
+              span John Doe, Salesman, Rep Inc
+          .item
+            h4
+              | "Could I... BE any more happy with this company?"
+              br
+              span Chandler Bing, Actor, FriendsAlot
+        // Left and right controls
+        a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+          span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+          span.sr-only Previous
+        a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+          span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+          span.sr-only Next
+    // Container (Pricing Section)
+    #pricing.container-fluid
+      .text-center
+        h2 Pricing
+        h4 Choose a payment plan that works for you
+      .row.slideanim
+        .col-sm-4.col-xs-12
+          .panel.panel-default.text-center
+            .panel-heading
+              h1 Basic
+            .panel-body
+              p
+                strong 20
+                |  Lorem
+              p
+                strong 15
+                |  Ipsum
+              p
+                strong 5
+                |  Dolor
+              p
+                strong 2
+                |  Sit
+              p
+                strong Endless
+                |  Amet
+            .panel-footer
+              h3 $19
+              h4 per month
+              button.btn.btn-lg Sign Up
+        .col-sm-4.col-xs-12
+          .panel.panel-default.text-center
+            .panel-heading
+              h1 Pro
+            .panel-body
+              p
+                strong 50
+                |  Lorem
+              p
+                strong 25
+                |  Ipsum
+              p
+                strong 10
+                |  Dolor
+              p
+                strong 5
+                |  Sit
+              p
+                strong Endless
+                |  Amet
+            .panel-footer
+              h3 $29
+              h4 per month
+              button.btn.btn-lg Sign Up
+        .col-sm-4.col-xs-12
+          .panel.panel-default.text-center
+            .panel-heading
+              h1 Premium
+            .panel-body
+              p
+                strong 100
+                |  Lorem
+              p
+                strong 50
+                |  Ipsum
+              p
+                strong 25
+                |  Dolor
+              p
+                strong 10
+                |  Sit
+              p
+                strong Endless
+                |  Amet
+            .panel-footer
+              h3 $49
+              h4 per month
+              button.btn.btn-lg Sign Up
+    // Container (Contact Section)
+    #contact.container-fluid.bg-grey
+      h2.text-center CONTACT
+      .row
+        .col-sm-5
+          p Contact us and we'll get back to you within 24 hours.
+          p
+            span.glyphicon.glyphicon-map-marker
+            |  Chicago, US
+          p
+            span.glyphicon.glyphicon-phone
+            |  +00 1515151515
+          p
+            span.glyphicon.glyphicon-envelope
+            |  myemail@something.com
+        .col-sm-7.slideanim
+          .row
+            .col-sm-6.form-group
+              input#name.form-control(name='name', placeholder='Name', type='text', required='')
+            .col-sm-6.form-group
+              input#email.form-control(name='email', placeholder='Email', type='email', required='')
+          textarea#comments.form-control(name='comments', placeholder='Comment', rows='5')
+          br
+          .row
+            .col-sm-12.form-group
+              button.btn.btn-default.pull-right(type='submit') Send
+    // Add Google Maps
+    #googleMap(style='height:400px;width:100%;')
+    script.
+        function myMap() {
+            var myCenter = new google.maps.LatLng(53.479844, -2.221328);
+            var mapProp = {
+                center: myCenter,
+                zoom: 12,
+                scrollwheel: false,
+                draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({position: myCenter});
+            marker.setMap(map);
+        }
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDB7ohyzNMH3lGH2J91ikuwSuQh8eyvlYY&callback=myMap')
+    //
+      To use this code on your website, get a free API key from Google.
+      Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+    footer.container-fluid.text-center
+      a(href='#myPage', title='To Top')
+        span.glyphicon.glyphicon-chevron-up
+      p
+        | Bootstrap Theme Made By
+        a(href='https://www.w3schools.com', title='Visit w3schools') www.w3schools.com
+    script.
+        $(document).ready(function () {
+            // Add smooth scrolling to all links in navbar + footer link
+            $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+                    // Store hash
+                    var hash = this.hash;
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 900, function () {
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+            $(window).scroll(function () {
+                $(".slideanim").each(function () {
+                    var pos = $(this).offset().top;
+                    var winTop = $(window).scrollTop();
+                    if (pos < winTop + 600) {
+                        $(this).addClass("slide");
+                    }
+                });
+            });
+        })
