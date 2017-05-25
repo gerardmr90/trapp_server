@@ -49,7 +49,7 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 //
-// var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 // var todos = [];
 // var todoNextId = 1;
 
