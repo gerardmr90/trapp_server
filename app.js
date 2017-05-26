@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', index);
+app.use('/', index);
 //
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
@@ -83,6 +83,54 @@ app.get('/todos', function (req, res) {
     });
 });
 
+// // GET /todos?completed=false&q=work
+// app.get('/deliveries', function (req, res) {
+//     var query = req.query;
+//     var where = {};
+//
+//     if (query.hasOwnProperty('completed') && query.completed === 'true') {
+//         where.completed = true;
+//     } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
+//         where.completed = false;
+//     }
+//
+//     if (query.hasOwnProperty('q') && query.q.length > 0) {
+//         where.description = {
+//             $like: '%' + query.q + '%'
+//         };
+//     }
+//
+//     db.delivery.findAll({where: where}).then(function (deliveries) {
+//         res.json(todos);
+//     }, function (e) {
+//         res.status(500).send();
+//     });
+// });
+//
+// // GET /todos?completed=false&q=work
+// app.get('/couriers', function (req, res) {
+//     var query = req.query;
+//     var where = {};
+//
+//     if (query.hasOwnProperty('completed') && query.completed === 'true') {
+//         where.completed = true;
+//     } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
+//         where.completed = false;
+//     }
+//
+//     if (query.hasOwnProperty('q') && query.q.length > 0) {
+//         where.description = {
+//             $like: '%' + query.q + '%'
+//         };
+//     }
+//
+//     db.delivery.findAll({where: where}).then(function (deliveries) {
+//         res.json(todos);
+//     }, function (e) {
+//         res.status(500).send();
+//     });
+// });
+
 // GET /todos/:id
 app.get('/todos/:id', function (req, res) {
     var todoId = parseInt(req.params.id, 10);
@@ -127,10 +175,10 @@ app.post('/couriers', function (req, res) {
     });
 });
 
-// POST /couriers
+// POST /deliveries
 app.post('/deliveries', function (req, res) {
     var query = req.query;
-    db.courier.create({
+    db.delivery.create({
         delivery_uid: query.delivery_uid,
         courier_uid: query.courier_uid,
         receiver_uid: query.receiver_uid,
@@ -139,8 +187,8 @@ app.post('/deliveries', function (req, res) {
         address: query.address,
         date: query.company_name,
         state: query.state
-    }).then(function (courier) {
-        res.json(courier.toJSON());
+    }).then(function (delivery) {
+        res.json(delivery.toJSON());
     }, function (e) {
         res.status(400).json(e);
     });
