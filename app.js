@@ -83,21 +83,6 @@ app.get('/couriers', function (req, res) {
     });
 });
 
-// GET /todos/:id
-app.get('/todos/:id', function (req, res) {
-    var todoId = parseInt(req.params.id, 10);
-
-    db.todo.findById(todoId).then(function (todo) {
-        if (!!todo) {
-            res.json(todo.toJSON());
-        } else {
-            res.status(404).send();
-        }
-    }, function (e) {
-        res.status(500).send();
-    });
-});
-
 // GET /deliveries/:id
 app.get('/deliveries/:id', function (req, res) {
     var id = parseInt(req.params.id, 10);
@@ -128,22 +113,6 @@ app.get('/couriers/:id', function (req, res) {
     });
 });
 
-// POST /couriers
-app.post('/couriers', function (req, res) {
-    var query = req.query;
-    db.courier.create({
-        uid: query.uid,
-        name: query.name,
-        email: query.email,
-        latitude: query.latitude,
-        longitude: query.longitude
-    }).then(function (courier) {
-        res.json(courier.toJSON());
-    }, function (e) {
-        res.status(400).json(e);
-    });
-});
-
 // POST /deliveries
 app.post('/deliveries', function (req, res) {
     var query = req.query;
@@ -163,6 +132,22 @@ app.post('/deliveries', function (req, res) {
     });
 });
 
+// POST /couriers
+app.post('/couriers', function (req, res) {
+    var query = req.query;
+    db.courier.create({
+        uid: query.uid,
+        name: query.name,
+        email: query.email,
+        latitude: query.latitude,
+        longitude: query.longitude
+    }).then(function (courier) {
+        res.json(courier.toJSON());
+    }, function (e) {
+        res.status(400).json(e);
+    });
+});
+
 // DELETE /todos/:id
 app.delete('/todos/:id', function (req, res) {
     var todoId = parseInt(req.params.id, 10);
@@ -177,6 +162,40 @@ app.delete('/todos/:id', function (req, res) {
     } else {
         todos = _.without(todos, matchedTodo);
         res.json(matchedTodo);
+    }
+});
+
+// DELETE /deliveries/:id
+app.delete('/deliveries/:id', function (req, res) {
+    var id = parseInt(req.params.id, 10);
+    var matchedDelivery = _.findWhere(deliveries, {
+        id: id
+    });
+
+    if (!matchedDelivery) {
+        res.status(404).json({
+            "error": "no delivery found with that id"
+        });
+    } else {
+        deliveries = _.without(deliveries, matchedDelivery);
+        res.json(matchedDelivery);
+    }
+});
+
+// DELETE /couriers/:id
+app.delete('/couriers/:id', function (req, res) {
+    var id = parseInt(req.params.id, 10);
+    var matchedCourier = _.findWhere(couriers, {
+        id: id
+    });
+
+    if (!matchedCourier) {
+        res.status(404).json({
+            "error": "no courier found with that id"
+        });
+    } else {
+        couriers = _.without(couriers, matchedCourier);
+        res.json(matchedCourier);
     }
 });
 
