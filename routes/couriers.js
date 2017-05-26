@@ -1,8 +1,7 @@
 var express = require('express');
-var couriers = require('./routes/couriers');
 var bodyParser = require('body-parser');
 
-var db = require('./db.js');
+var db = require('../db.js');
 var app = express();
 
 module.exports = app;
