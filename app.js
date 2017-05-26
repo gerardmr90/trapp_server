@@ -182,11 +182,11 @@ app.delete('/deliveries/:id', function (req, res) {
     }
 });
 
-// DELETE /couriers/:id
-app.delete('/couriers/:id', function (req, res) {
-    var id = parseInt(req.params.id, 10);
+// DELETE /couriers/:uid
+app.delete('/couriers/:uid', function (req, res) {
+    var uid = parseInt(req.params.uid, 100);
     var matchedCourier = _.findWhere(couriers, {
-        id: id
+        uid: uid
     });
 
     if (!matchedCourier) {
