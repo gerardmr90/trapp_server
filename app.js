@@ -148,84 +148,38 @@ app.post('/couriers', function (req, res) {
     });
 });
 
-// DELETE /todos/:id
-app.delete('/todos/:id', function (req, res) {
-    var todoId = parseInt(req.params.id, 10);
-    var matchedTodo = _.findWhere(todos, {
-        id: todoId
-    });
+// DELETE /deliveries/:delivery_uid
+app.delete('/deliveries/:delivery_uid', function (req, res) {
+    var where = {};
+    var delivery_uid = req.params.delivery_uid;
 
-    if (!matchedTodo) {
-        res.status(404).json({
-            "error": "no todo found with that id"
-        });
-    } else {
-        todos = _.without(todos, matchedTodo);
-        res.json(matchedTodo);
-    }
-});
+    where.delivery_uid = {$eq: delivery_uid};
 
-// DELETE /deliveries/:id
-app.delete('/deliveries/:id', function (req, res) {
-    var id = parseInt(req.params.id, 10);
-    var matchedDelivery = _.findWhere(deliveries, {
-        id: id
-    });
-
-    if (!matchedDelivery) {
-        res.status(404).json({
-            "error": "no delivery found with that id"
-        });
-    } else {
-        deliveries = _.without(deliveries, matchedDelivery);
-        res.json(matchedDelivery);
-    }
+    db.delivery.destroy({where: where})
+    return res.status(204).send();
 });
 
 // DELETE /couriers/:uid
 app.delete('/couriers/:uid', function (req, res) {
-    var uid = parseInt(req.params.uid, 100);
-    var matchedCourier = _.findWhere(couriers, {
-        uid: uid
-    });
+    var where = {};
+    var uid = req.params.uid;
 
-    if (!matchedCourier) {
-        res.status(404).json({
-            "error": "no courier found with that id"
-        });
-    } else {
-        couriers = _.without(couriers, matchedCourier);
-        res.json(matchedCourier);
-    }
+    where.uid = {$eq: uid};
+
+    db.courier.destroy({where: where})
+    return res.status(204).send();
 });
 
-// PUT /todos/:id
-app.put('/todos/:id', function (req, res) {
-    var todoId = parseInt(req.params.id, 10);
-    var matchedTodo = _.findWhere(todos, {
-        id: todoId
+// PUT /deliveries/:delivery_uid
+app.put('/deliveries/:delivery_uid', function (req, res) {
+    var delivery_uid = req.params.delivery_uid;
+
+    db.delivery.update({
+        state: 'Delivered'
+    }, {
+        where: {delivery_uid: delivery_uid}
     });
-    var body = _.pick(req.body, 'description', 'completed');
-    var validAttributes = {};
-
-    if (!matchedTodo) {
-        return res.status(404).send();
-    }
-
-    if (body.hasOwnProperty('completed') && _.isBoolean(body.completed)) {
-        validAttributes.completed = body.completed;
-    } else if (body.hasOwnProperty('completed')) {
-        return res.status(400).send();
-    }
-
-    if (body.hasOwnProperty('description') && _.isString(body.description) && body.description.trim().length > 0) {
-        validAttributes.description = body.description;
-    } else if (body.hasOwnProperty('description')) {
-        return res.status(400).send();
-    }
-
-    _.extend(matchedTodo, validAttributes);
-    res.json(matchedTodo);
+    return res.status(200).send();
 });
 
 db.sequelize.sync().then(function () {
