@@ -59,30 +59,6 @@ var courierNextId = 1;
 
 app.use(bodyParser.json());
 
-// GET /todos?completed=false&q=work
-app.get('/todos', function (req, res) {
-    var query = req.query;
-    var where = {};
-
-    if (query.hasOwnProperty('completed') && query.completed === 'true') {
-        where.completed = true;
-    } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
-        where.completed = false;
-    }
-
-    if (query.hasOwnProperty('q') && query.q.length > 0) {
-        where.description = {
-            $like: '%' + query.q + '%'
-        };
-    }
-
-    db.todo.findAll({where: where}).then(function (todos) {
-        res.json(todos);
-    }, function (e) {
-        res.status(500).send();
-    });
-});
-
 // GET /deliveries
 app.get('/deliveries', function (req, res) {
     var query = req.query;
@@ -149,19 +125,6 @@ app.get('/couriers/:id', function (req, res) {
         }
     }, function (e) {
         res.status(500).send();
-    });
-});
-
-// POST /todos
-app.post('/todos', function (req, res) {
-    var query = req.query;
-    db.todo.create({
-        description: query.description,
-        completed: query.completed
-    }).then(function (todo) {
-        res.json(todo.toJSON());
-    }, function (e) {
-        res.status(400).json(e);
     });
 });
 
