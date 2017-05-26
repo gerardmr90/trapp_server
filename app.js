@@ -85,28 +85,55 @@ app.get('/todos', function (req, res) {
 
 // GET /todos?completed=false&q=work
 app.get('/deliveries', function (req, res) {
-    // var query = req.query;
-    // var where = {};
+    var query = req.query;
+    var where = {};
 
-    pg.connect(conString, function(err, client, done) {
-        if (err) {
-            return console.error('error fetching client from pool', err);
-        }
-        console.log("connected to database");
-        client.query('SELECT * FROM deliveries', function(err, result) {
-            done();
-            if (err) {
-                return console.error('error running query', err);
-            }
-            res.send(result);
-        });
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.delivery_uid = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.courier_uid = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.receiver_uid = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.company_uid = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.company_name = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.address = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.date = {
+            $like: '%' + query.q + '%'
+        };
+    }
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.state = {
+            $like: '%' + query.q + '%'
+        };
+    }
+
+    db.delivery.findAll({where: where}).then(function (deliveries) {
+        res.json(todos);
+    }, function (e) {
+        res.status(500).send();
     });
-    //
-    // db.delivery.findAll({where: where}).then(function (deliveries) {
-    //     res.json(todos);
-    // }, function (e) {
-    //     res.status(500).send();
-    // });
 });
 //
 // // GET /todos?completed=false&q=work
