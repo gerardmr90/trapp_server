@@ -48,11 +48,11 @@ app.use('/', index);
 // });
 
 module.exports = app;
-//
+
 var PORT = process.env.PORT || 3000;
 var todos = [];
 var deliveries = [];
-var courier = [];
+var couriers = [];
 var todoNextId = 1;
 var deliveryNextId = 1;
 var courierNextId = 1;
@@ -169,9 +169,9 @@ app.post('/todos', function (req, res) {
 app.post('/couriers', function (req, res) {
     var query = req.query;
     db.courier.create({
-        courier_uid: query.courier_uid,
-        courier_name: query.courier_name,
-        courier_email: query.courier_email,
+        uid: query.uid,
+        name: query.name,
+        email: query.email,
         latitude: query.latitude,
         longitude: query.longitude
     }).then(function (courier) {
