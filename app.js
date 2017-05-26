@@ -117,7 +117,7 @@ app.get('/deliveries/:id', function (req, res) {
 app.get('/couriers/:id', function (req, res) {
     var id = parseInt(req.params.id, 10);
 
-    db.todo.findById(id).then(function (courier) {
+    db.courier.findById(id).then(function (courier) {
         if (courier) {
             res.json(courier.toJSON());
         } else {
