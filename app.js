@@ -89,7 +89,7 @@ app.get('/deliveries', function (req, res) {
     var where = {};
 
     db.delivery.findAll({where: where}).then(function (deliveries) {
-        res.json(todos);
+        res.json(deliveries);
     }, function (e) {
         res.status(500).send();
     });
