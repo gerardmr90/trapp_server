@@ -127,6 +127,25 @@ app.post('/couriers', function (req, res) {
     });
 });
 
+// POST /couriers
+app.post('/couriers', function (req, res) {
+    var query = req.query;
+    db.courier.create({
+        delivery_uid: query.delivery_uid,
+        courier_uid: query.courier_uid,
+        receiver_uid: query.receiver_uid,
+        company_uid: query.company_uid,
+        company_name: query.company_name,
+        address: query.address,
+        date: query.company_name,
+        state: query.state
+    }).then(function (courier) {
+        res.json(courier.toJSON());
+    }, function (e) {
+        res.status(400).json(e);
+    });
+});
+
 // DELETE /todos/:id
 app.delete('/todos/:id', function (req, res) {
     var todoId = parseInt(req.params.id, 10);
