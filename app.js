@@ -169,9 +169,9 @@ app.post('/todos', function (req, res) {
 app.post('/couriers', function (req, res) {
     var query = req.query;
     db.courier.create({
-        uid: query.uid,
-        name: query.name,
-        email: query.email,
+        courier_uid: query.courier_uid,
+        courier_name: query.courier_name,
+        courier_email: query.courier_email,
         latitude: query.latitude,
         longitude: query.longitude
     }).then(function (courier) {

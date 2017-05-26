@@ -1,20 +1,20 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('courier', {
-        uid: {
+        courier_uid: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [1, 250]
             }
         },
-        name: {
+        courier_name: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [1, 250]
             }
         },
-        email: {
+        courier_email: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
