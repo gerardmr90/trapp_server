@@ -8,6 +8,7 @@ var stylus = require('stylus');
 
 var index = require('./routes/index');
 var deliveries = require('./routes/deliveries');
+var couriers = require('./routes/couriers');
 
 var _ = require('underscore');
 var db = require('./db.js');
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/deliveries', deliveries);
+app.use('/couriers', couriers);
 //
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
@@ -50,27 +52,10 @@ app.use('/deliveries', deliveries);
 // });
 
 module.exports = app;
-//
+
 var PORT = process.env.PORT || 3000;
 
-var courier = [];
-
-var courierNextId = 1;
-
 app.use(bodyParser.json());
-
-
-// GET /couriers
-app.get('/couriers', function (req, res) {
-    var query = req.query;
-    var where = {};
-
-    db.delivery.findAll({where: where}).then(function (couriers) {
-        res.json(couriers);
-    }, function (e) {
-        res.status(500).send();
-    });
-});
 
 // GET /todos/:id
 app.get('/todos/:id', function (req, res) {
@@ -95,22 +80,6 @@ app.post('/todos', function (req, res) {
         completed: query.completed
     }).then(function (todo) {
         res.json(todo.toJSON());
-    }, function (e) {
-        res.status(400).json(e);
-    });
-});
-
-// POST /couriers
-app.post('/couriers', function (req, res) {
-    var query = req.query;
-    db.courier.create({
-        uid: query.uid,
-        name: query.name,
-        email: query.email,
-        latitude: query.latitude,
-        longitude: query.longitude
-    }).then(function (courier) {
-        res.json(courier.toJSON());
     }, function (e) {
         res.status(400).json(e);
     });
