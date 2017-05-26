@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var stylus = require('stylus');
 
 var index = require('./routes/index');
-var deliveries = require('./routes/deliveries');
-var couriers = require('./routes/couriers');
 
 var _ = require('underscore');
 var db = require('./db.js');
@@ -30,8 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/deliveries', deliveries);
-app.use('/couriers', couriers);
 //
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
@@ -52,10 +48,64 @@ app.use('/couriers', couriers);
 // });
 
 module.exports = app;
-
+//
 var PORT = process.env.PORT || 3000;
+var todos = [];
+var deliveries = [];
+var courier = [];
+var todoNextId = 1;
+var deliveryNextId = 1;
+var courierNextId = 1;
 
 app.use(bodyParser.json());
+
+// GET /todos?completed=false&q=work
+app.get('/todos', function (req, res) {
+    var query = req.query;
+    var where = {};
+
+    if (query.hasOwnProperty('completed') && query.completed === 'true') {
+        where.completed = true;
+    } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
+        where.completed = false;
+    }
+
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.description = {
+            $like: '%' + query.q + '%'
+        };
+    }
+
+    db.todo.findAll({where: where}).then(function (todos) {
+        res.json(todos);
+    }, function (e) {
+        res.status(500).send();
+    });
+});
+
+// GET /deliveries
+app.get('/deliveries', function (req, res) {
+    var query = req.query;
+    var where = {};
+
+    db.delivery.findAll({where: where}).then(function (deliveries) {
+        res.json(deliveries);
+    }, function (e) {
+        res.status(500).send();
+    });
+});
+
+// GET /couriers
+app.get('/couriers', function (req, res) {
+    var query = req.query;
+    var where = {};
+
+    db.courier.findAll({where: where}).then(function (couriers) {
+        res.json(couriers);
+    }, function (e) {
+        res.status(500).send();
+    });
+});
 
 // GET /todos/:id
 app.get('/todos/:id', function (req, res) {
@@ -72,6 +122,36 @@ app.get('/todos/:id', function (req, res) {
     });
 });
 
+// GET /deliveries/:id
+app.get('/deliveries/:id', function (req, res) {
+    var id = parseInt(req.params.id, 10);
+
+    db.delivery.findById(id).then(function (delivery) {
+        if (delivery) {
+            res.json(delivery.toJSON());
+        } else {
+            res.status(404).send();
+        }
+    }, function (e) {
+        res.status(500).send();
+    });
+});
+
+// GET /couriers/:id
+app.get('/couriers/:id', function (req, res) {
+    var id = parseInt(req.params.id, 10);
+
+    db.todo.findById(id).then(function (courier) {
+        if (courier) {
+            res.json(courier.toJSON());
+        } else {
+            res.status(404).send();
+        }
+    }, function (e) {
+        res.status(500).send();
+    });
+});
+
 // POST /todos
 app.post('/todos', function (req, res) {
     var query = req.query;
@@ -80,6 +160,41 @@ app.post('/todos', function (req, res) {
         completed: query.completed
     }).then(function (todo) {
         res.json(todo.toJSON());
+    }, function (e) {
+        res.status(400).json(e);
+    });
+});
+
+// POST /couriers
+app.post('/couriers', function (req, res) {
+    var query = req.query;
+    db.courier.create({
+        uid: query.uid,
+        name: query.name,
+        email: query.email,
+        latitude: query.latitude,
+        longitude: query.longitude
+    }).then(function (courier) {
+        res.json(courier.toJSON());
+    }, function (e) {
+        res.status(400).json(e);
+    });
+});
+
+// POST /deliveries
+app.post('/deliveries', function (req, res) {
+    var query = req.query;
+    db.delivery.create({
+        delivery_uid: query.delivery_uid,
+        courier_uid: query.courier_uid,
+        receiver_uid: query.receiver_uid,
+        company_uid: query.company_uid,
+        company_name: query.company_name,
+        address: query.address,
+        date: query.company_name,
+        state: query.state
+    }).then(function (delivery) {
+        res.json(delivery.toJSON());
     }, function (e) {
         res.status(400).json(e);
     });
