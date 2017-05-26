@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var stylus = require('stylus');
 
 var index = require('./routes/index');
+var deliveries = require('./routes/deliveries');
 
 var _ = require('underscore');
 var db = require('./db.js');
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/deliveries', deliveries);
 //
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
@@ -50,74 +52,25 @@ app.use('/', index);
 module.exports = app;
 //
 var PORT = process.env.PORT || 3000;
-var todos = [];
-var deliveries = [];
+
 var courier = [];
-var todoNextId = 1;
-var deliveryNextId = 1;
+
 var courierNextId = 1;
 
 app.use(bodyParser.json());
 
-// GET /todos?completed=false&q=work
-app.get('/todos', function (req, res) {
+
+// GET /couriers
+app.get('/couriers', function (req, res) {
     var query = req.query;
     var where = {};
 
-    if (query.hasOwnProperty('completed') && query.completed === 'true') {
-        where.completed = true;
-    } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
-        where.completed = false;
-    }
-
-    if (query.hasOwnProperty('q') && query.q.length > 0) {
-        where.description = {
-            $like: '%' + query.q + '%'
-        };
-    }
-
-    db.todo.findAll({where: where}).then(function (todos) {
-        res.json(todos);
+    db.delivery.findAll({where: where}).then(function (couriers) {
+        res.json(couriers);
     }, function (e) {
         res.status(500).send();
     });
 });
-
-// GET /todos?completed=false&q=work
-app.get('/deliveries', function (req, res) {
-    var query = req.query;
-    var where = {};
-
-    db.delivery.findAll({where: where}).then(function (deliveries) {
-        res.json(deliveries);
-    }, function (e) {
-        res.status(500).send();
-    });
-});
-//
-// // GET /todos?completed=false&q=work
-// app.get('/couriers', function (req, res) {
-//     var query = req.query;
-//     var where = {};
-//
-//     if (query.hasOwnProperty('completed') && query.completed === 'true') {
-//         where.completed = true;
-//     } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
-//         where.completed = false;
-//     }
-//
-//     if (query.hasOwnProperty('q') && query.q.length > 0) {
-//         where.description = {
-//             $like: '%' + query.q + '%'
-//         };
-//     }
-//
-//     db.delivery.findAll({where: where}).then(function (deliveries) {
-//         res.json(todos);
-//     }, function (e) {
-//         res.status(500).send();
-//     });
-// });
 
 // GET /todos/:id
 app.get('/todos/:id', function (req, res) {
@@ -158,25 +111,6 @@ app.post('/couriers', function (req, res) {
         longitude: query.longitude
     }).then(function (courier) {
         res.json(courier.toJSON());
-    }, function (e) {
-        res.status(400).json(e);
-    });
-});
-
-// POST /deliveries
-app.post('/deliveries', function (req, res) {
-    var query = req.query;
-    db.delivery.create({
-        delivery_uid: query.delivery_uid,
-        courier_uid: query.courier_uid,
-        receiver_uid: query.receiver_uid,
-        company_uid: query.company_uid,
-        company_name: query.company_name,
-        address: query.address,
-        date: query.company_name,
-        state: query.state
-    }).then(function (delivery) {
-        res.json(delivery.toJSON());
     }, function (e) {
         res.status(400).json(e);
     });
