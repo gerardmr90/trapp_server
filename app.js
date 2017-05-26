@@ -128,7 +128,7 @@ app.post('/couriers', function (req, res) {
 });
 
 // POST /couriers
-app.post('/couriers', function (req, res) {
+app.post('/deliveries', function (req, res) {
     var query = req.query;
     db.courier.create({
         delivery_uid: query.delivery_uid,
