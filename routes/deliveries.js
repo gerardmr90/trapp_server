@@ -16,7 +16,6 @@ app.get('/', function (req, res) {
     });
 });
 
-
 // GET /deliveries/:id
 app.get('/:id', function (req, res) {
     var id = parseInt(req.params.id, 10);
@@ -31,7 +30,6 @@ app.get('/:id', function (req, res) {
         res.status(500).send();
     });
 });
-
 
 // POST /deliveries
 app.post('/', function (req, res) {

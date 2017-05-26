@@ -9,6 +9,7 @@ var stylus = require('stylus');
 var index = require('./routes/index');
 var deliveries = require('./routes/deliveries');
 var couriers = require('./routes/couriers');
+var statistics = require('./routes/statistics');
 
 var _ = require('underscore');
 var db = require('./db.js');
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/statistics', statistics);
 app.use('/deliveries', deliveries);
 app.use('/couriers', couriers);
 

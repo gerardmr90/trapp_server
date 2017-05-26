@@ -14,7 +14,6 @@ router.get('/', function (req, res) {
     });
 });
 
-
 // GET /couriers/:id
 router.get('/:id', function (req, res) {
     var id = parseInt(req.params.id, 10);
@@ -29,7 +28,6 @@ router.get('/:id', function (req, res) {
         res.status(500).send();
     });
 });
-
 
 // POST /couriers
 router.post('/', function (req, res) {
@@ -46,8 +44,6 @@ router.post('/', function (req, res) {
         res.status(400).json(e);
     });
 });
-
-
 
 // DELETE /couriers/:uid
 router.delete('/:uid', function (req, res) {
