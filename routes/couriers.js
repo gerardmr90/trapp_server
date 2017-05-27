@@ -35,7 +35,9 @@ router.post('/', function (req, res) {
     db.courier.create({
         uid: query.uid,
         name: query.name,
-        email: query.email
+        email: query.email,
+        latitude: query.latitude,
+        longitude: query.longitude
     }).then(function (courier) {
         res.json(courier.toJSON());
     }, function (e) {
