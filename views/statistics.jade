@@ -10,6 +10,7 @@ html(lang='en')
     link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='/js/morris.min.js')
     style.
       body {
         font: 400 15px Lato, sans-serif;
@@ -237,4 +238,13 @@ html(lang='en')
     .jumbotron.text-center
       h1 Statistics
 
-
+    div
+      table.table.table-bordered.table-striped
+        thead
+          tr: th CourierId
+              th Number of shipments
+        tbody
+          each key in keys
+            tr
+              td  #{key}
+              td  #{dictionary[key]}
