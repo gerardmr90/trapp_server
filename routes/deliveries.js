@@ -37,7 +37,7 @@ app.post('/', function (req, res) {
     db.delivery.create({
         uid: query.uid,
         courier_uid: query.courier_uid,
-        date: query.company_name,
+        date: query.date,
         state: query.state
     }).then(function (delivery) {
         res.json(delivery.toJSON());
