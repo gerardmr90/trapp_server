@@ -57,4 +57,23 @@ app.delete('/:uid', function (req, res) {
     return res.status(204).send();
 });
 
+
+app.put('/', function (req, res) {
+    var query = req.query;
+
+    db.delivery.findOne({ where : {'uid':query.uid} }).then(function(delivery){
+        if(delivery){
+            delivery.updateAttributes({
+                uid: query.uid,
+                courier_uid: query.courier_uid,
+                date: query.date,
+                state: query.state
+            });
+            return res.status(400).send();
+        }
+        return res.status(404).send();
+    });
+});
+
+
 module.exports = router;
