@@ -35,12 +35,8 @@ app.get('/:id', function (req, res) {
 app.post('/', function (req, res) {
     var query = req.query;
     db.delivery.create({
-        delivery_uid: query.delivery_uid,
+        uid: query.uid,
         courier_uid: query.courier_uid,
-        receiver_uid: query.receiver_uid,
-        company_uid: query.company_uid,
-        company_name: query.company_name,
-        address: query.address,
         date: query.company_name,
         state: query.state
     }).then(function (delivery) {
@@ -50,12 +46,12 @@ app.post('/', function (req, res) {
     });
 });
 
-// DELETE /deliveries/:delivery_uid
-app.delete('/:delivery_uid', function (req, res) {
+// DELETE /deliveries/:uid
+app.delete('/:uid', function (req, res) {
     var where = {};
-    var delivery_uid = req.params.delivery_uid;
+    var uid = req.params.uid;
 
-    where.delivery_uid = {$eq: delivery_uid};
+    where.uid = {$eq: uid};
 
     db.delivery.destroy({where: where})
     return res.status(204).send();

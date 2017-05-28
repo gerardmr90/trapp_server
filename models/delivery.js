@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('delivery', {
-        delivery_uid: {
+        uid: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -8,34 +8,6 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         courier_uid: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 250]
-            }
-        },
-        receiver_uid: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 250]
-            }
-        },
-        company_uid: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 250]
-            }
-        },
-        company_name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 250]
-            }
-        },
-        address: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {

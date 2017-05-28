@@ -20,20 +20,6 @@ module.exports = function (sequelize, DataTypes) {
             validate: {
                 len: [1, 250]
             }
-        },
-        latitude: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 250]
-            }
-        },
-        longitude: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 250]
-            }
         }
     });
 };
